@@ -1,28 +1,107 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fflask3&demo-title=Flask%203%20%2B%20Vercel&demo-description=Use%20Flask%203%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fflask3-python-template.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994156/random/flask.png)
+# 🔐 2FA Codes Generator
 
-# Flask + Vercel
+Welcome to the **2FA Codes Generator** repository! This project provides a simple and efficient way to generate and verify HOTP and TOTP codes using Python and Flask.
 
-This example shows how to use Flask 3 on Vercel with Serverless Functions using the [Python Runtime](https://vercel.com/docs/concepts/functions/serverless-functions/runtimes/python).
+## ✨ Features
 
-## Demo
+- 🔑 Generate random secrets for 2FA
+- 🔢 Generate HOTP (HMAC-based One-Time Password) codes
+- ⏰ Generate TOTP (Time-based One-Time Password) codes
+- ✅ Verify HOTP and TOTP codes
+- 🔗 Generate OTPAuth URLs for easy integration with authenticator apps
 
-https://flask-python-template.vercel.app/
+## 📦 Installation
+1. ⭐ First give me a star
 
-## How it Works
+2. Clone the repository:
+  ```bash
+  git clone https://github.com/xe-4f14-5d3-6s2/2fa-codes-generator.git
+  cd 2fa-codes-generator
+  ```
 
-This example uses the Web Server Gateway Interface (WSGI) with Flask to enable handling requests on Vercel with Serverless Functions.
+3. Create a virtual environment and activate it:
+  ```bash
+  python3 -m venv venv
+  source venv/bin/activate
+  ```
 
-## Running Locally
+4. Install the required dependencies:
+  ```bash
+  pip install -r requirements.txt
+  ```
 
-```bash
-npm i -g vercel
-vercel dev
-```
+## 🚀 Usage
 
-Your Flask application is now available at `http://localhost:3000`.
+1. Run the Flask application:
+  ```bash
+  flask run
+  ```
 
-## One-Click Deploy
+2. Use the following endpoints to generate and verify codes:
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
+### 🔗 Endpoints
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fflask3&demo-title=Flask%203%20%2B%20Vercel&demo-description=Use%20Flask%203%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fflask3-python-template.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994156/random/flask.png)
+- **Generate Secret**
+  ```http
+  GET /generate/secret?length=<length>
+  ```
+  - `length`: Length of the secret (default: 32)
+
+- **Generate TOTP**
+  ```http
+  GET /generate/totp?secret=<secret>&digits=<digits>&period=<period>
+  ```
+  - `secret`: The secret key
+  - `digits`: Number of digits in the OTP (default: 6)
+  - `period`: Time period in seconds (default: 30)
+
+- **Generate HOTP**
+  ```http
+  GET /generate/hotp?secret=<secret>&counter=<counter>&digits=<digits>
+  ```
+  - `secret`: The secret key
+  - `counter`: Counter value
+  - `digits`: Number of digits in the OTP (default: 6)
+
+- **Generate OTPAuth URL**
+  ```http
+  GET /generate/url?secret=<secret>&label=<label>&issuer=<issuer>&algorithm=<algorithm>&digits=<digits>&period=<period>&type=<type>
+  ```
+  - `secret`: The secret key
+  - `label`: Label for the OTP
+  - `issuer`: Issuer name (optional)
+  - `algorithm`: Hash algorithm (default: SHA1)
+  - `digits`: Number of digits in the OTP (default: 6)
+  - `period`: Time period in seconds (default: 30)
+  - `type`: Type of OTP (totp or hotp, default: totp)
+
+- **Verify TOTP**
+  ```http
+  GET /verify/totp?secret=<secret>&token=<token>&digits=<digits>&period=<period>&window=<window>
+  ```
+  - `secret`: The secret key
+  - `token`: The OTP token to verify
+  - `digits`: Number of digits in the OTP (default: 6)
+  - `period`: Time period in seconds (default: 30)
+  - `window`: Verification window (default: 1)
+
+- **Verify HOTP**
+  ```http
+  GET /verify/hotp?secret=<secret>&token=<token>&counter=<counter>&digits=<digits>&window=<window>
+  ```
+  - `secret`: The secret key
+  - `token`: The OTP token to verify
+  - `counter`: Counter value
+  - `digits`: Number of digits in the OTP (default: 6)
+  - `window`: Verification window (default: 1)
+
+## 🤝 Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+
+## 🙏 Acknowledgements
+
+- [Flask](https://flask.palletsprojects.com/)
+- [Python](https://www.python.org/)
+
+Thank you for using **2FA Codes Generator**! If you have any questions or feedback, feel free to reach out. 2FA Codes Generator
